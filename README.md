@@ -9,7 +9,7 @@ Installation Instructions.
 
 
  Twitter 
-..............................
+
 1.Go to dev.twitter.com
 2.Create a new twitter Applicaton.
 3.Set its permission to read and write.
