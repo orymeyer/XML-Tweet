@@ -1,7 +1,7 @@
 XML-Tweet
 =========
 
-Google Apps Script that Tweets new messages from an XML Source.
+A bot written in Python that works in Google App Engine.
 
 
 Installation Instructions
@@ -12,18 +12,15 @@ Twitter Setup
 1.Go to dev.twitter.com
 2.Create a new twitter Applicaton.
 3.Set its permission to read and write.
-4.Copy conusmer secret and Consumer Id.
+4.Copy consumer secret and Consumer Id.
 
 
 
 
 Sign into your Google account.
 ===============================
-1.Copy the Source code from XML-Tweet.js
-3.Make necessary changes in the source code.(Paste consumer secret and consumer Id)
-2.Go to Script.google.com
-3.Create a new Standalone Script.
-4.Run the Function init() Once.
-5.Setup a time-diven trigger for the function fetch() and set it to run every 15 minutes or as you please.
-
+1.Create an App Engine Application.
+2.Download the App Engine SDK
+3.Fill in the APP.YAML file
+4.Deploy to Google App Engine
 
