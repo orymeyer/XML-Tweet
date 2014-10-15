@@ -1,6 +1,4 @@
-import webapp2
-
-import yql,model,tweepy
+import yql,model,twitter,webapp2
 
 class MainPage(webapp2.RequestHandler):
     def get(self):

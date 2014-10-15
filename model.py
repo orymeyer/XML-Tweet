@@ -18,7 +18,7 @@ def isEmpty():
 tkey = ndb.Key('tweet','t')
 
 def fetch():
-    r = tweetStore.query(ancestor=tkey).order(-tweetStore.tweet_time)
+    r = tweetStore.query().order(-tweetStore.tweet_time)
     res = r.fetch(1)
     if len(res) < 1:
         return False #Empty Condition

@@ -1,5 +1,6 @@
-import yql,tweepy,model,webapp2
-import oauth_example.handlers
+import yql,twitter,model,webapp2
+from twitter import *
+
 
 class init(webapp2.RequestHandler):
     def get(self):
@@ -7,7 +8,8 @@ class init(webapp2.RequestHandler):
         query = 'select * from xml where url="http://www.espncricinfo.com/rss/content/story/feeds/0.xml"'
         res = y.execute(query)
         #last notification
-        tweet = res.rows[0]['channel']['item'][0]['description']
+        tweet = "A small Status"
+        #tweet = res.rows[0]['channel']['item'][0]['description']
         #fetch from GAE datastore
         fetched  = model.fetch()
         if not fetched:
@@ -22,19 +24,22 @@ class init(webapp2.RequestHandler):
             pass
         else:
             model.add(tweet)
-            a,b  = split(tweet)
-            update(a,b)
-            self.response.write('  Updated & Added  ')
+            if len(tweet) >140:
+                a,b = None,None
+                a,b  = split(tweet)
+                update(a,b)
+                self.response.write('  Updated & Added  ')
+            else:
+                update(tweet,None)
+                self.response.write('  Updated & Added  ')
+
                 
                 
 
 
 def split(tweet):
-    if len(tweet) > 60:
-        return "[1/2]"+tweet[0:135],"[2/2]"+tweet[135:len(tweet)]
-    else:
-        return tweet
-
+    return "[1/2]"+tweet[0:135],"[2/2]"+tweet[135:len(tweet)]
+    
 #a,b = split(tweet)
 
 
@@ -49,19 +54,17 @@ def update(a,b):
     access_token_secret = "VD3KAutrpoHnX9kvlrLk88tDD0kCWtTCIRDuBYeJnls" 
 
 
-    auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
-    auth.set_access_token(access_token, access_token_secret)
-
-    api = tweepy.API(auth)
+    t = Twitter(
+        auth=OAuth(access_token, access_token_secret, consumer_key, consumer_secret))
 
 
 
     res={}
-    if len(b) < 1:
-        res = api.update_status(a)
+    if b is None:
+        res = t.statuses.update(status=a)
     else:
-        res[0] = api.update_status(b)
-        res[1] = api.update_status(a)
+        res[0] = t.statuses.update(status=b)
+        res[1] = t.statuses.update(status=a)
 
 #update(a,b)
 
